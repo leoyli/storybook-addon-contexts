@@ -1,6 +1,6 @@
 # Storybook Addon Contexts
 
-⚠ THIS REPOSITORY IS NO LONGER MAINTAINED AND EXISTED FOR HISTORICAL REFERENCE. ⚠
+**⚠ THIS REPOSITORY IS NO LONGER MAINTAINED AND EXISTED FOR HISTORICAL REFERENCE. ⚠**
 
 [![npm version](https://badge.fury.io/js/addon-contexts.svg)](https://badge.fury.io/js/addon-contexts)
 
@@ -14,7 +14,7 @@ The `addon-contexts` have been migrate into the main monorepo of the Storybook p
 find the up-to-dated source code [here](https://github.com/storybooks/storybook/tree/next/addons/contexts).
 
 It was expected to be officially release under Storybook v5.1. You can start to use this addon if you use
-Storybook `v5.1-alpha.30` or above. You may still get this addon via NPM if you have already use it or wish
+Storybook `v5.1.0-alpha.30` or above. You may still get this addon via NPM if you have already use it or wish
 to try out now but yet upgraded to the above version of the Storybook until this addon has received an
 officially stable release.  For then, a deprecation hint will be pushed into NPM registry.
 
