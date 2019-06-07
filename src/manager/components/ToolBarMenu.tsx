@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { Icons, IconButton, WithTooltip } from '@storybook/components';
 import { ToolBarMenuOptions } from './ToolBarMenuOptions';
-import { TToolBarMenu } from '../@types';
+import { ContextNode, FCNoChildren } from '../../shared/types.d';
 
-export const ToolBarMenu: TToolBarMenu = ({
+type ToolBarMenu = FCNoChildren<{
+  icon: ComponentProps<typeof Icons>['icon'];
+  title: ContextNode['title'];
+  active: boolean;
+  expanded: boolean;
+  setExpanded: (state: boolean) => void;
+  optionsProps: ComponentProps<typeof ToolBarMenuOptions>;
+}>;
+
+export const ToolBarMenu: ToolBarMenu = ({
   icon,
   title,
   active,

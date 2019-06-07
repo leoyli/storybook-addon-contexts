@@ -5,6 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [1.3.0] - 2019-06-06
+
+## Deprecation
+
+- Deprecate this package since this addon now release in Storybook v5.1.
+
+## Feature
+
+- Upgrade package to the latest version.
+
+
 ## [1.2.1] - 2019-04-14
 
 ## Feature

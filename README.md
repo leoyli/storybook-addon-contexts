@@ -10,13 +10,10 @@
 
 ## ⚠️ Migration
 
+This addon now have been release under Storybook v5.1, this npm package hosted by this repo are now deprecated.
+
 The `addon-contexts` has been migrate into the main monorepo of the Storybook project.  You can, however,
 find the up-to-dated source code [here](https://github.com/storybooks/storybook/tree/next/addons/contexts).
-
-It was expected to be officially release under Storybook v5.1. You can start to use this addon if you use
-Storybook `v5.1.0-alpha.31` or above. You may still get this addon via NPM if you have already use it or wish
-to try out now but yet upgraded to the above version of the Storybook until this addon has received an
-officially stable release.  For then, a deprecation hint will be pushed into NPM registry.
 
 If you have any question, suggestion, or finding a bug to report, please consider to file it in
 [the main Storybook repo](https://github.com/storybooks/storybook/issues). Thank you and see you there :).

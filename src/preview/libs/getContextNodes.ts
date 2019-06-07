@@ -1,48 +1,53 @@
-import { GetContextNodes, GetMergedSettings } from '../../@types';
+/* eslint-disable no-underscore-dangle */
+import { AddonSetting, ContextNode, WrapperSettings } from '../../shared/types.d';
 
 /**
  * @private
- * Merges the global (options) and the story (parameters) from a pair of setting;
- *
- * @return the normalized definition for a contextual environment (-> node).
+ * Merge the top-level (global options) and the story-level (parameters) from a pair of setting;
+ * @return the normalized definition for a contextual environment (i.e. a contextNode).
  */
-export const _getMergedSettings: GetMergedSettings = (
-  { icon, title, components = [], params = [], options = {} },
-  { params: storyParams = [], options: storyOptions = {}, ...story }
-) => ({
-  nodeId: title || story.title || '',
-  icon: icon || story.icon || '',
-  title: title || story.title || '',
-  components: components,
-  params: !!(params.length || storyParams.length)
-    ? params.concat(storyParams)
-    : [{ name: '', props: {} }],
-  options: Object.assign(
-    {
-      deep: false,
-      disable: false,
-      cancelable: false,
-    },
-    options,
-    storyOptions
-  ),
+type _getMergedSettings = (
+  topLevel: Partial<AddonSetting>,
+  storyLevel: Partial<AddonSetting>
+) => ContextNode;
+
+export const _getMergedSettings: _getMergedSettings = (topLevel, storyLevel) => ({
+  // strip out special characters reserved for serializing
+  nodeId: (topLevel.title || storyLevel.title || '').replace(/[,+]/g, ''),
+  icon: topLevel.icon || storyLevel.icon || '',
+  title: topLevel.title || storyLevel.title || '',
+  components: topLevel.components || storyLevel.components || [],
+  params:
+    topLevel.params || storyLevel.params
+      ? [...(topLevel.params || []), ...(storyLevel.params || [])].filter(Boolean)
+      : [{ name: '', props: {} }],
+  options: {
+    deep: false,
+    disable: false,
+    cancelable: false,
+    ...topLevel.options,
+    ...storyLevel.options,
+  },
 });
 
 /**
  * @nosideeffects
- * pairs up settings for merging normalizations to produce the contextual definitions (-> nodes);
+ * Pair up settings for merging normalizations to produce the contextual definitions (i.e. contextNodes);
  * it guarantee the adding order can be respected but not duplicated.
  */
-export const getContextNodes: GetContextNodes = ({ options, parameters }) => {
-  const titles = Array()
-    .concat(options, parameters)
-    .map(({ title } = {}) => title);
+type getContextNodes = (settings: WrapperSettings) => ContextNode[];
+
+export const getContextNodes: getContextNodes = ({ options, parameters }) => {
+  const titles = [...(options || []), ...(parameters || [])]
+    .filter(Boolean)
+    .map(({ title }) => title);
+
   return Array.from(new Set(titles))
     .filter(Boolean)
-    .map((title) =>
+    .map(title =>
       _getMergedSettings(
-        (options && options.find((option) => option.title === title)) || {},
-        (parameters && parameters.find((param) => param.title === title)) || {}
+        (options && options.find(option => option.title === title)) || {},
+        (parameters && parameters.find(param => param.title === title)) || {}
       )
     );
 };
